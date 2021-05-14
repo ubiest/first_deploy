@@ -57,7 +57,7 @@ def predict(image):
           'Handbag',
           'Purse']
     '''
-    predictions = model_inference.predict(test_image)
+    predictions = model_inference.predict(image)
     scores = tf.nn.softmax(predictions[0])
     scores = scores.numpy()
     results = {
