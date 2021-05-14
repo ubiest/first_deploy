@@ -46,19 +46,8 @@ def predict(image):
     classifier_model = "model_T19-F44-LR0.003.pkl"
     IMAGE_SHAPE = (224, 224,3)
     model_inference = load_learner(model_path/classifier_model)
-    '''
-    test_image = image.resize((224,224))
-    test_image = preprocessing.image.img_to_array(test_image)
-    test_image = test_image / 255.0
-    test_image = np.expand_dims(test_image, axis=0)
-
-    class_names = [
-          'Backpack',
-          'Briefcase',
-          'Duffle',
-          'Handbag',
-          'Purse']
-    '''
+    print(image)
+    
     predictions = model_inference.predict(image)
     scores = tf.nn.softmax(predictions[0])
     scores = scores.numpy()
@@ -70,7 +59,7 @@ def predict(image):
           'Purse': 0
           }
 
-    print(predictions)
+    print(predictions, image)
     result = f"{class_names[np.argmax(scores)]} with a { (100 * np.max(scores)).round(2) } % confidence."
     return predictions
 
