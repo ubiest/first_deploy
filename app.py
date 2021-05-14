@@ -49,18 +49,8 @@ def predict(image):
     print(image)
 
     predictions = model_inference.predict(image)
-    scores = tf.nn.softmax(predictions[0])
-    scores = scores.numpy()
-    results = {
-          'Backpack': 0,
-          'Briefcase': 0,
-          'Duffle': 0,
-          'Handbag': 0,
-          'Purse': 0
-          }
 
-    print(predictions, image)
-    result = f"{class_names[np.argmax(scores)]} with a { (100 * np.max(scores)).round(2) } % confidence."
+    #result = f"{class_names[np.argmax(scores)]} with a { (100 * np.max(scores)).round(2) } % confidence."
     return predictions
 
 
