@@ -17,6 +17,7 @@ st.markdown("Welcome to this simple web application that classifies bags. The ba
 def get_x_cv(r):
     '''## Get the x values in the Cross-Validated scenario'''
     return r['fname']
+def get_y(r): return r['labels'].split(' ')
 
 def main():
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
