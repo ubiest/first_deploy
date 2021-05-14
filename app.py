@@ -23,7 +23,7 @@ def main():
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
     class_btn = st.button("Classify")
     if file_uploaded is not None:
-        image = PIL.Image.create(file_uploaded)
+        image = Image.create(file_uploaded)
         st.image(image, caption='Uploaded Image', use_column_width=True)
 
     if class_btn:
