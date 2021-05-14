@@ -10,9 +10,11 @@ fig = plt.figure()
 with open("custom.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title('Bag Classifier')
+st.title('Vacation Rentals Photos Classifier')
 
-st.markdown("Welcome to this simple web application that classifies bags. The bags are classified into six different classes namely: Backpack, Briefcase, Duffle, Handbag and Purse.")
+st.markdown("Welcome to this simple web application that classifies rooms in a vacation rental property. \
+    Possible locations are Bathroom, Bedroom, Kitchen, Living Area, Dining Area, \
+    Terrace, Pool & Garden, Exteriors & Views, and Others (office, stairwells, corridors, etc).")
 
 def get_x_cv(r):
     '''## Get the x values in the Cross-Validated scenario'''
