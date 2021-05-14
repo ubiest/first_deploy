@@ -23,7 +23,7 @@ def main():
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
     class_btn = st.button("Classify")
     if file_uploaded is not None:
-        image = Image.open(file_uploaded)
+        image = PIL.Image.create(file_uploaded)
         st.image(image, caption='Uploaded Image', use_column_width=True)
 
     if class_btn:
@@ -33,8 +33,8 @@ def main():
             with st.spinner('Model working....'):
                 plt.imshow(image)
                 plt.axis("off")
-                # predictions = predict(image)
-                predictions = predict(file_uploaded)
+                predictions = predict(image)
+                #predictions = predict(file_uploaded)
                 time.sleep(1)
                 st.success('Classified')
                 st.write(predictions)
@@ -47,7 +47,7 @@ def predict(image):
     IMAGE_SHAPE = (224, 224,3)
     model_inference = load_learner(model_path/classifier_model)
     print(image)
-    
+
     predictions = model_inference.predict(image)
     scores = tf.nn.softmax(predictions[0])
     scores = scores.numpy()
