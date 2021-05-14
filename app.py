@@ -3,6 +3,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 import fastai
+from fastai.vision.all import *
 import time
 fig = plt.figure()
 
@@ -37,7 +38,7 @@ def main():
 
 def predict(image):
     model_path = Path('../')
-    classifier_model = "my_export_13_05.pkl"
+    classifier_model = "model_T19-F44-LR0.003.pkl"
     IMAGE_SHAPE = (224, 224,3)
     model_inference = load_learner(model_path/classifier_model)
     '''
