@@ -22,7 +22,7 @@ def get_x_cv(r):
 def get_y(r): return r['labels'].split(' ')
 
 def main():
-    file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
+    file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg","webp" ])
     class_btn = st.button("Classify")
     if file_uploaded is not None:
         image = PILImage.create(file_uploaded)
