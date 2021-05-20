@@ -1,5 +1,4 @@
 import streamlit as st
-#from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 import fastai
@@ -7,6 +6,7 @@ from fastai.vision.all import *
 import time
 fig = plt.figure()
 
+st.set_page_config(page_title='VR Photos Classifier', page_icon=None, layout='centered', initial_sidebar_state='auto')
 with open("custom.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
