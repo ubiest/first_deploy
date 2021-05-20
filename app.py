@@ -12,9 +12,10 @@ with open("custom.css") as f:
 
 st.title('Vacation Rentals Photos Classifier')
 
-st.markdown("Welcome to this simple web application that classifies rooms in a vacation rental property. \
-    Possible locations are Bathroom, Bedroom, Kitchen, Living Area, Dining Area, \
-    Terrace, Pool & Garden, Exteriors & Views, and Others (office, stairwells, corridors, etc).")
+st.markdown("Our web application classifies rooms in a vacation rental property. \
+    Currently, the rooms or locations are Bathroom, Bedroom, Kitchen, Living Area, Dining Area, \
+    Terrace, Pool & Garden, Exteriors & Views, and Others (office, stairwells, corridors, etc).\n \
+    Upload an image and try it out!")
 
 def get_x_cv(r):
     '''## Get the x values in the Cross-Validated scenario'''
