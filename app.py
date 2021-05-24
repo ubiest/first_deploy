@@ -44,7 +44,7 @@ def main():
 
 def predict(image):
     model_path = Path('../')
-    classifier_model = "model_T19-F44-LR0.003.pkl"
+    classifier_model = "model_90_60_90.pkl"
     IMAGE_SHAPE = (224, 224,3)
     model_inference = load_learner(model_path/classifier_model)
     print(image)
