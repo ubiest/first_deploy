@@ -1,6 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
+import numpy.ma as ma
 import fastai
 from fastai.vision.all import *
 import time
@@ -34,10 +35,7 @@ def main():
             st.write("Invalid command, please upload an image")
         else:
             with st.spinner('Model working....'):
-                #plt.imshow(image)
-                #plt.axis("off")
                 predictions = predict(image)
-                #predictions = predict(file_uploaded)
                 time.sleep(1)
                 st.success('Classified')
                 st.write(predictions)
@@ -52,9 +50,12 @@ def predict(image):
     print(image)
 
     predictions = model_inference.predict(image)
-
-    #result = f"{class_names[np.argmax(scores)]} with a { (100 * np.max(scores)).round(2) } % confidence."
-    return predictions
+    x_mask = predictions[1].numpy()
+    percents = predictions[2].numpy()
+    predicts = [str.title(x.replace('_', ' ')) for x in predictions[0]]
+    weights = [percents[element] for element in (np.nonzero(x_mask))[0]]
+    output = ' \n '.join([f'{pred} with a probability of {weight:.2%}.' for pred, weight in zip(predicts, weights)])
+    return output #predicts, predictions[2].numpy()
 
 
 
