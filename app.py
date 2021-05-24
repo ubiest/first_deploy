@@ -5,7 +5,7 @@ import numpy.ma as ma
 import fastai
 from fastai.vision.all import *
 import time
-fig = plt.figure()
+import altair as alt
 
 st.set_page_config(page_title='VR Photos Classifier', page_icon=None, layout='centered', initial_sidebar_state='auto')
 with open("custom.css") as f:
@@ -35,11 +35,29 @@ def main():
             st.write("Invalid command, please upload an image")
         else:
             with st.spinner('Model working....'):
-                predictions = predict(image)
+                predictions, pred_dict = predict(image)
                 time.sleep(1)
                 st.success('Classified')
                 st.write(predictions)
-                st.pyplot(fig)
+
+                df = pd.DataFrame.from_dict(pred_dict, orient='index').reset_index()
+                df.columns = ['Room', 'Score']
+
+                bars = alt.Chart(df).mark_bar().encode(
+                    y = 'Room',
+                    x = 'Score:Q'
+                )
+
+                text = bars.mark_text(
+                    align='left',
+                    baseline='middle',
+                    dx=3  # Nudges text to right so it doesn't appear on top of the bar
+                ).encode(
+                    text='Score:Q'
+                )
+
+                (bars + text).properties(height=900)
+                st.altair_chart((bars + text))
 
 
 def predict(image):
@@ -49,13 +67,14 @@ def predict(image):
     model_inference = load_learner(model_path/classifier_model)
     print(image)
 
-    predictions = model_inference.predict(image)
-    x_mask = predictions[1].numpy()
-    percents = predictions[2].numpy()
-    predicts = [str.title(x.replace('_', ' ')) for x in predictions[0]]
+    predictions, x_mask, percents = model_inference.predict(image)
+    x_mask = x_mask.numpy()
+    percents = percents.numpy()
+    predicts = [str.title(x.replace('_', ' ')) for x in predictions]
     weights = [percents[element] for element in (np.nonzero(x_mask))[0]]
     output = ' \n '.join([f'{pred} with a probability of {weight:.2%}.' for pred, weight in zip(predicts, weights)])
-    return output #predicts, predictions[2].numpy()
+    output_dict = dict(zip(predicts, weights))
+    return output, output_dict #predicts, predictions[2].numpy()
 
 
 
