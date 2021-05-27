@@ -71,10 +71,10 @@ def predict(image):
     x_mask = x_mask.numpy()
     percents = percents.numpy()
     predicts = [str.title(x.replace('_', ' ')) for x in predictions]
-    weights = [percents[element] for element in (np.nonzero(x_mask))[0]]
+    weights = [round(percents[element], 4) for element in (np.nonzero(x_mask))[0]]
     output = ' \n '.join([f'{pred} with a probability of {weight:.2%}.' for pred, weight in zip(predicts, weights)])
     output_dict = dict(zip(predicts, weights))
-    return output, output_dict #predicts, predictions[2].numpy()
+    return output, output_dict 
 
 
 
